@@ -1,0 +1,50 @@
+name: maskgrpo
+seed: 42
+
+
+model:
+    vq_model:
+        type: "magvitv2"
+        vq_model_name: "showlab/magvitv2"
+
+    gradient_checkpointing: True
+
+dataset:
+    gen_type: "t2i"
+    und_type: "captioning"
+    params:
+        batch_size: ${training.batch_size}
+        shuffle_buffer_size: 1000
+        num_workers: 32
+        resolution: 512
+        pin_memory: True
+        persistent_workers: True
+
+    preprocessing:
+        max_seq_length: 128
+        resolution: 512
+        center_crop: False
+        random_flip: False
+
+training:
+    kl_beta: 0 
+    full_compute: False 
+    candidate: 1 # 1 means candidate1, 2 means candidate2
+    gradient_accumulation_steps: 1
+    cond_dropout_prob: 0.1
+    batch_size: 1
+    num_workers: 1
+    debug: False
+    generation_timesteps: 50 
+    eval_generation_timesteps: 50 
+    group_size: 6
+    num_epochs: 1
+    guidance_scale: 0 
+    lr_scheduler: cosine
+    num_warmup_steps: 1000
+    number_training_steps: 16000 
+    learning_rate: 0.000003
+    weight_decay: 0.02
+    betas:
+    - 0.9
+    - 0.95

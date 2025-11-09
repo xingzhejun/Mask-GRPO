@@ -1,0 +1,1 @@
+CUDA_VISIBLE_DEVICES=0 accelerate launch geneval.py config=configs/Mask_GRPO_train_512x512.yaml
